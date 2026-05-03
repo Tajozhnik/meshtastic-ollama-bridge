@@ -13,7 +13,7 @@ from pubsub import pub
 
 # Если авто-поиск Meshtastic-ноды не сработает, укажи COM-порт явно:
 # пример: MESHTASTIC_PORT = "COM4"
-MESHTASTIC_PORT = "COM8"
+MESHTASTIC_PORT = None
 
 # Твоя модель из ollama list:
 MODEL = "huihui_ai/qwen3.5-abliterated:35b"
@@ -22,16 +22,6 @@ OLLAMA_URL = "http://localhost:11434/api/chat"
 
 # Бот будет отвечать только на сообщения, начинающиеся с /ai
 TRIGGER = "/ai"
-
-# В Meshtastic лучше делать ответы короткими.
-SYSTEM_PROMPT = (
-    "/no_think\n"
-    "Ты локальный помощник, отвечающий через Meshtastic. "
-    "Отвечай только по-русски. "
-    "Отвечай очень кратко: максимум 1-2 предложения. "
-    "Не используй markdown, списки и рассуждения. "
-    "Не показывай thinking, chain-of-thought или внутренние размышления."
-)
 
 # Лимит на одну часть ответа.
 # Кириллица занимает больше байт, поэтому не ставь слишком много.
@@ -297,7 +287,7 @@ def on_receive(packet, interface=None):
 
 
 def on_connection(interface, topic=None):
-    print("[OK] Подключился к Meshtastic-норе.")
+    print("[OK] Подключился к Meshtastic-ноде.")
     try:
         print(f"[INFO] Моя нода: {interface.myInfo}")
     except Exception:
